@@ -23,12 +23,36 @@ class EraJp
      */
     public $time;
 
+    /**
+     * 対象日付のユリウス日
+     * @var integer
+     */
     public $jd;
+
+    /**
+     * 対象日付のユリウス日(日付を全てグレゴリオ暦とした場合)
+     * @var integer
+     */
     public $jd_gregorian;
 
+    /**
+     * 元号オブジェクト
+     * @var Era
+     */
     public $era;
+
+    /**
+     * 旧暦オブジェクト
+     * @var Kyuureki
+     */
     public $kyuureki;
 
+
+    /**
+     * Constructor
+     * 
+     * @param AstroTime|string  $date   対象日付 (AstroTimeオブジェクト または 日付文字列)
+     */
     public function __construct($date=null) {
         date_default_timezone_set(static::TIMEZONE_NAME);
         if(! empty($date)) {
@@ -53,11 +77,25 @@ class EraJp
         return $this;
     }
 
+    /**
+     * Eraオブジェクト生成(元号)
+     * 
+     * @param AstroTime $time   対象日付AstroTimeオブジェクト
+     * @param EraJp
+     */
     public function setEra(AstroTime $time) {
         $this->era = new Era($time);
+        return $this;
     }
 
+    /**
+     * Kyuurekiオブジェクト生成(旧暦日付)
+     * 
+     * @param AstroTime $time   対象日付AstroTimeオブジェクト
+     * @param EraJp
+     */
     public function setKyuureki(AstroTime $time) {
         $this->kyuureki = new Kyuureki($time);
+        return $this;
     }
 }

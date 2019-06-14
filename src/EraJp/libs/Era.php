@@ -24,10 +24,32 @@ class Era
      */
     public $is_north = false;
 
+    /**
+     * 元号名称
+     * @var string
+     */
     public $name = null;
 
+    /**
+     * 元号名称($nameのエイリアス)
+     * @var string
+     */
+    public $gengou = null;
+
+    /**
+     * 元号年
+     * @var integer
+     */
     public $year;
 
+
+    /**
+     * Constructor
+     *  - AstroTimeオブジェクトを指定した場合は元号を求めてセット
+     * 
+     * @param AstroTime     $new_time   新暦日時AstroTimeオブジェクト
+     * @param array         $params     その他パラメータ
+     */
     public function __construct(AstroTime $new_time=null, $params=null) {
         if (! is_null($params)) {
             $this->is_north = (isset($params['is_north']) && $params['is_north']) ? true : false;
@@ -38,6 +60,12 @@ class Era
         }
     }
 
+    /**
+     * 元号をセット
+     * 
+     * @param AstroTime     $new_time   新暦日時AstroTimeオブジェクト
+     * @return Era
+     */
     public function setEra(AstroTime $new_time) {
         $era = static::searchForSetting($new_time);
         if (! $era) {
@@ -45,8 +73,9 @@ class Era
             return false;
         }
 
-        $this->name = $era['name'];
-        $this->year = $era['year'];
+        $this->name = $this->gengou = $era['name'];
+        $this->year = (int)$era['year'];
+        return $this;
     }
 
 
