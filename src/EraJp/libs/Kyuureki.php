@@ -41,7 +41,7 @@ class Kyuureki
      * 指定の新暦日時は日本では旧暦を使用していたか
      * @var boolean
      */
-    public $use_kyuureki;
+    public $use_kyuureki = false;
 
     /**
      * Constructor
@@ -97,7 +97,7 @@ class Kyuureki
      * @return boolean
      */
     public static function useKyuureki(AstroTime $new_time) {
-        $jd = $new_time->jd;
+        $jd = ceil($new_time->jd);
         return ($jd < static::JP_START_GREGORIAN_JD) ? true : false;
     }
 
