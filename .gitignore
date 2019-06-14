@@ -1,0 +1,7 @@
+/vendor
+.env
+test.php
+log
+*.log
+src/EraJp/utils/*.txt
+
